@@ -2,5 +2,6 @@
 .Rhistory
 
 # Example code in package build process
+*.dat
 *-Ex.R
 *.pwd
