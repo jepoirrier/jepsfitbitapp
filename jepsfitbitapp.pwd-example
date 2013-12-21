@@ -1,0 +1,5 @@
+Consumer key	"insert-your-consumer-key-here"
+Consumer secret	"insert-your-consumer-secret-here"
+Request token URL	"http://api.fitbit.com/oauth/request_token"
+Access token URL	"http://api.fitbit.com/oauth/access_token"
+Authorize URL	"http://www.fitbit.com/oauth/authorize"
