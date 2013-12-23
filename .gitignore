@@ -2,6 +2,11 @@
 .Rhistory
 
 # Example code in package build process
-*.dat
 *-Ex.R
+
+# Own password and data files
+*.dat
 *.pwd
+
+# Created figures
+*.png
