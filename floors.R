@@ -1,4 +1,4 @@
-# Script to get data on steps from Fitbit
+# Script to get data on floors from Fitbit
 # Requires a key + secret in jepsfitbitapp.pwd
 
 library(ggplot2)
