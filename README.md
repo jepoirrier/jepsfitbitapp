@@ -19,3 +19,4 @@ Serie of posts on my blog:
 
 * http://jepoirrier.org/2013/12/24/2013-with-fitbits/
 * http://jepoirrier.org/2013/12/25/do-you-climb-more-floors-when-moving-from-an-apartment-to-a-house/
+* http://jepoirrier.org/2014/01/05/getting-some-sleep-out-of-fitbits/
