@@ -89,11 +89,62 @@ while(today <= endDate) {
 
 # Now build the different graphs
 
-# Temporary issue : throttled after 58 requests (before implementing sleep above)
-sleepDF2=sleepDF[1:58]
-sleepDF2 = sleepDF2[sleepDF2$minutesAsleep > 0, ]
+sleepDF2 = sleepDF[sleepDF$minutesAsleep > 0, ]
+summary(sleepDF2)
 
 # Minutes asleep
-qplot(sleepDF2$minutesAsleep/60, main="Hours asleep (March - April 2013)", xlab="Hours asleep")
+x = sleepDF2$minutesAsleep/60
+xLength = length(x)
+plot(1:xLength, x, main="Hours asleep (March - December 2013)", xlab="Days in 2013", ylab="Hours asleep")
+
+# It seems there is a trend to increase over time, try a fit?
+lmfit = lm(x ~ c(1:xLength))
+lmfit
+summary(lmfit) # so apparently not significant
+plot(lmfit)
+
+# By plotting the histogram it seems this distribution look normal; check it!
+hist(x, main="Histogram of hours asleep (March-December 2013)")
+plot(density(x), main="Density estimates of hours asleep (03-12/2013)")
+plot(ecdf(x), main="Empirical cumulative distribution of hours asleep (03-12/2013)")
+
+z.norm = (x-mean(x))/sd(x) # standardized data
+qqnorm(z.norm) # drawing QQplot
+abline(0,1) # drawing 45 degree reference line
+
+shapiro.test(x) # normality test
+
+# plot both data and normal distribution
+h = hist(x, breaks=30)
+xhist = c(min(h$breaks), h$breaks)
+yhist = c(0, h$density, 0)
+xfit = seq(min(x), max(x), length=40)
+yfit = dnorm(xfit, mean=mean(x), sd=sd(x))
+plot(xhist, yhist, type="s", ylim=c(0, max(yhist, yfit)), main="Normal PDF and histogram of hours asleep (3-12/2013)", xlab="Hours asleep", ylab="Frequencies")
+lines(xfit, yfit, col="red")
+
+# Awakenings
+x = sleepDF2$awakeningsCount
+xLength = length(x)
+xL = c(1:xLength)
+qplot(xL, x, main="# awakenings (March - December 2013)", xlab="Days in 2013", ylab="# awakenings")
+qplot(x, main="Distribution of awakenings (March - December 2013)", xlab="# of awakenings")
+
+# minutesAsleep and awakenings are linked?
+x = sleepDF2$minutesAsleep
+y = sleepDF2$awakeningsCount
+lmfit = lm(y ~ x)
+lmfit
+xLength = max(x)
+xfit = c(1:xLength)
+yfit = lmfit$coefficients[1] + lmfit$coefficients[2] * xfit
+plot(x, y, main="Sleep duration & # of awakenings, 2013", xlab="Minutes asleep", ylab="# of awakenings")
+lines(xfit, yfit, col="red")
+
+# sleepEfficiency
+x = sleepDF2$efficiency
+xLength = length(x)
+xL = c(1:xLength)
+qplot(xL, x, main="Sleep efficiency (March - December 2013)", xlab="Days in 2013", ylab="Sleep efficiency (%)")
 
 # TODO embed more stats, explore other parameters
