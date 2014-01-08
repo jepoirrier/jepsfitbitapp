@@ -103,6 +103,8 @@ lmfit
 summary(lmfit) # so apparently not significant
 plot(lmfit)
 
+t.test(x[1:30], x[xLength-30:xLength], "l")
+
 # By plotting the histogram it seems this distribution look normal; check it!
 hist(x, main="Histogram of hours asleep (March-December 2013)")
 plot(density(x), main="Density estimates of hours asleep (03-12/2013)")
